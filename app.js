@@ -14,26 +14,52 @@ const roverTwoDirection = document.querySelector("#roverTwo-direction");
 const roverTwoLanding = document.querySelector("#roverTwo-landing");
 const roverTwoEndMission = document.querySelector("#roverTwo-end-mission");
 
+//function to format the entry of the user
+const roverDirection = (rover, direction) => {
+  direction === ("north" || "N")
+    ? ((rover.compassDirection = compass.north),
+      console.log("direction", direction))
+    : direction === ("south" || "S")
+    ? ((rover.compassDirection = compass.south),
+      console.log("direction", direction))
+    : direction === ("east" || "E")
+    ? ((rover.compassDirection = compass.east),
+      console.log("direction", direction))
+    : direction === ("west" || "W")
+    ? ((rover.compassDirection = compass.west),
+      console.log("direction", direction))
+    : "";
+};
+
 //Event listener for send position
 roverOneSendPosition.addEventListener("click", function (event) {
   event.preventDefault();
+  // delete roverOne.x
+  // delete roverOne.y
+  // delete roverOne.compassDirection
+  // delete roverOne.endMission
   roverOne.x = roverOnePositionX.value;
   roverOne.y = roverOnePositionY.value;
-  roverOne.compassDirection = roverOneDirection.value;
+  // roverOne.compassDirection = roverDirection(roverOne, roverOneDirection.value);
+  roverDirection(roverOne, roverOneDirection.value);
   roverOneLanding.innerHTML = `
   <p>
-    RoverOne paré a l'attérissage en: X: ${roverOne.x}, Y: ${roverOne.y}, direction: ${roverOne.compassDirection}
+  RoverOne paré à l'atterrissage en: X: ${roverOne.x}, Y: ${roverOne.y}, direction: ${roverOneDirection.value}
   </p>`;
 });
 
 roverTwoSendPosition.addEventListener("click", function (event) {
   event.preventDefault();
+  // delete roverTwo.x
+  // delete roverTwo.y
+  // delete roverTwo.compassDirection
+  // delete roverTwo.endMission
   roverTwo.x = roverTwoPositionX.value;
   roverTwo.y = roverTwoPositionY.value;
-  roverTwo.compassDirection = roverTwoDirection.value;
+  roverDirection(roverTwo, roverTwoDirection.value);
   roverTwoLanding.innerHTML = `
   <p>
-    RoverTwo paré a l'attérissage en: X: ${roverTwo.x}, Y: ${roverTwo.y}, direction: ${roverTwo.compassDirection}
+    RoverTwo paré à l'atterrissage en: X: ${roverTwo.x}, Y: ${roverTwo.y}, direction: ${roverTwoDirection.value}
   </p>
   <button onclick="startMission()">Partir en mission</button>`;
 });
@@ -109,7 +135,7 @@ const roverTravel = (rover, roverEndMission) => {
       : (rover.y > plateau.yMax
           ? (rover.y = plateau.y)
           : (rover.y = rover.y + orderForRover.move),
-        console.log("rover avance de 1 sur Y"));
+        console.log("Le rover avance de 1 sur Y"));
 
     //condition for the position of X
     rover.x === roverEndMission.x
@@ -117,7 +143,7 @@ const roverTravel = (rover, roverEndMission) => {
       : (rover.x > plateau.xMax
           ? (rover.x = plateau.x)
           : (rover.x = rover.x + orderForRover.move),
-        console.log("rover avance de 1 sur X"));
+        console.log("Le rover avance de 1 sur X"));
 
     //Condition for compass direction
     rover.compassDirection === roverEndMission.compassDirection
@@ -125,20 +151,20 @@ const roverTravel = (rover, roverEndMission) => {
       : rover.compassDirection > compass.west
       ? (rover.compassDirection = compass.north)
       : ((rover.compassDirection = rover.compassDirection + orderForRover.left),
-        console.log("rover tourne de 90° sur sa gauche"));
+        console.log("Le rover tourne de 90° sur sa gauche"));
   }
 };
 
 //function to format the compass
 const compassFormatting = (rover, roverEndMission) => {
   rover.compassDirection === compass.north
-    ? (rover.compassDirection = "N") && (roverEndMission.compassDirection = "N")
+    ? (rover.compassDirection = "N")
     : rover.compassDirection === compass.east
-    ? (rover.compassDirection = "E") && (roverEndMission.compassDirection = "E")
+    ? (rover.compassDirection = "E")
     : rover.compassDirection === compass.south
-    ? (rover.compassDirection = "S") && (roverEndMission.compassDirection = "S")
+    ? (rover.compassDirection = "S")
     : rover.compassDirection === compass.west
-    ? (rover.compassDirection = "W") && (roverEndMission.compassDirection = "S")
+    ? (rover.compassDirection = "W")
     : "";
 };
 
@@ -146,33 +172,39 @@ const compassFormatting = (rover, roverEndMission) => {
 const startMission = () => {
   //We look where the rover is
   if (!roverOne.endMission) {
-    roverOne.compassDirection = compass.north;
+    roverOneEndMission.innerHTML = `RoverOne est prêt à partir depuis la pos: X: ${roverOne.x}, Y:${roverOne.y}, direction:${roverOne.compassDirection}`;
+    setTimeout(() => {
+      roverOneEndMission.innerHTML = `RoverOne est parti`;
+    }, 1000);
     roverTravel(roverOne, roverOneObjectifMission);
     compassFormatting(roverOne, roverOneObjectifMission);
 
     roverOne.endMission =
       roverOne.x + " " + roverOne.y + " " + roverOne.compassDirection;
-
-    roverOneEndMission.innerHTML = `RoverOne est arrivé en pos: ${roverOne.endMission}`;
+    setTimeout(() => {
+      roverOneEndMission.innerHTML = `RoverOne est arrivé en pos: ${roverOne.endMission}`;
+    }, 2000);
   }
 
   //If the RoverOne has arrived
   if (roverOne.endMission !== undefined) {
-    roverTwoEndMission.innerHTML = `RoverTwo est parti`;
+    roverTwoEndMission.innerHTML = `RoverTwo est prêt à partir depuis la pos: X: ${roverTwo.x}, Y:${roverTwo.y}, direction:${roverTwo.compassDirection}`;
     setTimeout(() => {
-      console.log(
-        "RoverTwo est prêt à partir depuis la pos: ",
-        roverTwo.x + " " + roverTwo.y
-      );
-
-      roverTwo.compassDirection = compass.north;
-      roverTravel(roverTwo, roverTwoObjectifMission);
-      compassFormatting(roverTwo, roverTwoObjectifMission);
-
-      roverTwo.endMission =
-        roverTwo.x + " " + roverTwo.y + " " + roverTwo.compassDirection;
-
-      roverTwoEndMission.innerHTML = `RoverTwo est arrivé en pos: ${roverTwo.endMission}`;
+      roverTwoEndMission.innerHTML = `RoverTwo est parti`;
     }, 2000);
+    roverTravel(roverTwo, roverTwoObjectifMission);
+    compassFormatting(roverTwo, roverTwoObjectifMission);
+
+    roverTwo.endMission =
+      roverTwo.x + " " + roverTwo.y + " " + roverTwo.compassDirection;
+    setTimeout(() => {
+      roverTwoEndMission.innerHTML = `RoverTwo est arrivé en pos: ${roverTwo.endMission}`;
+
+      roverOne.compassDirection = roverOneObjectifMission.compassDirection;
+      delete roverOne.endMission;
+
+      roverTwo.compassDirection = roverTwoObjectifMission.compassDirection;
+      delete roverTwo.endMission;
+    }, 3000);
   }
 };
