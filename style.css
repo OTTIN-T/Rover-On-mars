@@ -1,0 +1,24 @@
+#mars {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin: auto;
+}
+
+h1 {
+  color: rgb(109, 51, 28);
+  text-align: center;
+}
+
+#form {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}
+
+#end-mission-zone,
+#landing-zone {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

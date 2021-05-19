@@ -1,0 +1,111 @@
+<html lang="fr" xml:lang="fr" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+     <!-- Appel CSS -->
+     <link rel="stylesheet" href="style.css" />
+     <title>Rover on Mars</title>
+</head>
+
+<body id="mars">
+     <section id="description">
+          <h1>Direction Mars</h1>
+          <div>
+               <h3>Objectif:</h3>
+               <p>Deux Rover sont envoyé sur Mars. En tant que StarCommander, vous devez choisir leur point
+                    d'attérrissage. Les rover couvre une zone de 5x5.</p>
+               <p>Une fois attéris le RoverOne doit ce rendre aux coordonnées: X: 1, Y: 3 et regarder vers le Nord.</p>
+               <p>Quant au RoverTwo il doit ce rendre aux coordonnées: X: 5, Y: 1 et regarder vers l'Est.</p>
+          </div>
+     </section>
+     <section>
+          <form action="index.html" id="form">
+               <fieldset>
+                    <legend>Choisissez où va atterrir RoverOne</legend>
+                    <div>
+                         <label for="roverOne-position-X">Coordonnées X</label>
+                         <select name="axisY" id="roverOne-position-X">
+                              <option selected value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                         </select>
+                    </div>
+                    <div>
+                         <label for="roverOne-position-Y">Coordonnées Y</label>
+                         <select name="axisY" id="roverOne-position-Y">
+                              <option selected value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                         </select>
+                    </div>
+                    <div>
+                         <label for="roverOne-direction">Direction</label>
+                         <select name="direction" id="roverOne-direction">
+                              <option selected value="north">Nord</option>
+                              <option value="east">Est</option>
+                              <option value="south">Sud</option>
+                              <option value="west">West</option>
+                         </select>
+                    </div>
+                    <button id="roverOne-send-position">Envoyer</button>
+               </fieldset>
+               <fieldset>
+                    <legend>Choisissez où va atterrir RoverTwo</legend>
+                    <div>
+                         <label for="roverTwo-position-X">Coordonnées X</label>
+                         <select name="axisY" id="roverTwo-position-X">
+                              <option selected value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                         </select>
+                    </div>
+                    <div>
+                         <label for="roverTwo-position-Y">Coordonnées Y</label>
+                         <select name="axisY" id="roverTwo-position-Y">
+                              <option selected value="0">0</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                         </select>
+                    </div>
+                    <div>
+                         <label for="roverTwo-direction">Direction</label>
+                         <select name="direction" id="roverTwo-direction">
+                              <option selected value="north">Nord</option>
+                              <option value="east">Est</option>
+                              <option value="south">Sud</option>
+                              <option value="west">West</option>
+                         </select>
+                    </div>
+                    <button id="roverTwo-send-position">Envoyer</button>
+               </fieldset>
+          </form>
+     </section>
+     <section id="landing-zone">
+          <h2>Zone d'attérissage</h2>
+          <div id="roverOne-landing">RoverOne en attente des coordonnées</div>
+          <div id="roverTwo-landing">RoverTwo en attente des coordonnées</div>
+     </section>
+     <section id="end-mission-zone">
+          <h2>Zone de fin de missions</h2>
+          <div id="roverOne-end-mission">En attente des Rovers</div>
+          <div id="roverTwo-end-mission"></div>
+     </section>
+
+     <script src="./app.js" defer></script>
+</body>
+
+</html>
