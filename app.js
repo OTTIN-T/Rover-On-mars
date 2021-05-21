@@ -55,6 +55,7 @@ const formatRoverDirection = (rover, direction) => {
     : "";
 };
 
+//Event listener for send mission
 roverOneSendMission.addEventListener("click", function (event) {
   event.preventDefault();
 
@@ -133,16 +134,9 @@ class Rover {
     this.compassDirection = compassDirection;
   }
 }
-const roverOne = new Rover(
-  roverOnePositionX,
-  roverOnePositionY,
-  roverOneDirection
-);
-const roverTwo = new Rover(
-  roverTwoPositionX,
-  roverTwoPositionY,
-  roverTwoDirection
-);
+//Default value
+const roverOne = new Rover(plateau.x + 1, plateau.y + 2, compass.north);
+const roverTwo = new Rover(plateau.x + 3, plateau.y + 3, compass.east);
 
 //Oject for the ObjectifMission
 class ObjectifMission {
@@ -152,6 +146,7 @@ class ObjectifMission {
     this.compassDirection = compassDirection;
   }
 }
+//Default value
 const roverOneObjectifMission = new ObjectifMission(
   plateau.x + 1,
   plateau.y + 3,
